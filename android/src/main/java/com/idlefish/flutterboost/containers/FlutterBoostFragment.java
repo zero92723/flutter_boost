@@ -67,6 +67,7 @@ public class FlutterBoostFragment extends FlutterFragment implements FlutterView
         View view = super.onCreateView(inflater, container, savedInstanceState);
         assert(flutterView == null);
         findFlutterView(view);
+        flutterView.detachFromFlutterEngine();
         return view;
     }
 
@@ -99,9 +100,9 @@ public class FlutterBoostFragment extends FlutterFragment implements FlutterView
     @Override
     public void onResume() {
         assert(flutterView != null);
-        if (!hasResumed) {
-            flutterView.detachFromFlutterEngine();
-        }
+        // if (!hasResumed) {
+        //     flutterView.detachFromFlutterEngine();
+        // }
         super.onResume();
         if (!isHidden()) {
             FlutterBoost.instance().getPlugin().onContainerAppeared(this);
