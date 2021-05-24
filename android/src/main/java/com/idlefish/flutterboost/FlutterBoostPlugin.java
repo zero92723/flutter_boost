@@ -15,6 +15,8 @@ import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
 
 public class FlutterBoostPlugin implements FlutterPlugin, Messages.NativeRouterApi, ActivityAware {
     private static final String TAG = FlutterBoostPlugin.class.getSimpleName();
+    private static final boolean DEBUG = true; // Set to true to enable debug logs.
+
     private Messages.FlutterRouterApi channel;
     private FlutterBoostDelegate delegate;
     private Messages.StackInfo dartStack;
@@ -43,12 +45,13 @@ public class FlutterBoostPlugin implements FlutterPlugin, Messages.NativeRouterA
 
     @Override
     public void pushNativeRoute(Messages.CommonParams params) {
+        if (DEBUG) Log.d(TAG, "#pushNativeRoute: name=" + params.getPageName());
         if (delegate != null) {
             requestCode++;
             if(pageNames!=null){
-                pageNames.put(requestCode,params.getPageName());
+                pageNames.put(requestCode, params.getPageName());
             }
-            delegate.pushNativeRoute(params.getPageName(), (Map<String, Object>) (Object)params.getArguments(),requestCode);
+            delegate.pushNativeRoute(params.getPageName(), (Map<String, Object>) (Object)params.getArguments(), requestCode);
         } else {
             throw new RuntimeException("FlutterBoostPlugin might *NOT* set delegate!");
         }
@@ -56,6 +59,7 @@ public class FlutterBoostPlugin implements FlutterPlugin, Messages.NativeRouterA
 
     @Override
     public void pushFlutterRoute(Messages.CommonParams params) {
+        if (DEBUG) Log.d(TAG, "#pushFlutterRoute: name=" + params.getPageName());
         if (delegate != null) {
             delegate.pushFlutterRoute(params.getPageName(), params.getUniqueId(), (Map<String, Object>) (Object)params.getArguments());
         } else {
@@ -65,6 +69,7 @@ public class FlutterBoostPlugin implements FlutterPlugin, Messages.NativeRouterA
 
     @Override
     public void popRoute(Messages.CommonParams params) {
+        if (DEBUG) Log.d(TAG, "#popRoute: name=" + params.getPageName());
         String uniqueId = params.getUniqueId();
         if (uniqueId != null) {
             FlutterViewContainer container = FlutterContainerManager.instance().findContainerById(uniqueId);
@@ -81,14 +86,14 @@ public class FlutterBoostPlugin implements FlutterPlugin, Messages.NativeRouterA
         if (dartStack == null) {
             return Messages.StackInfo.fromMap(new HashMap());
         }
-        Log.v(TAG, "#getStackFromHost: " + dartStack);
+        if (DEBUG) Log.d(TAG, "#getStackFromHost: " + dartStack);
         return dartStack;
     }
 
     @Override
     public void saveStackToHost(Messages.StackInfo arg) {
         dartStack = arg;
-        Log.v(TAG, "#saveStackToHost: " + dartStack);
+        if (DEBUG) Log.d(TAG, "#saveStackToHost: " + dartStack);
     }
 
     public interface Reply<T> {
@@ -147,7 +152,7 @@ public class FlutterBoostPlugin implements FlutterPlugin, Messages.NativeRouterA
         } else {
             throw new RuntimeException("FlutterBoostPlugin might *NOT* have attached to engine yet!");
         }
-        Log.v(TAG, "## onForeground: " + channel);
+        if (DEBUG) Log.d(TAG, "## onForeground: " + channel);
     }
 
     public void onBackground() {
@@ -157,7 +162,7 @@ public class FlutterBoostPlugin implements FlutterPlugin, Messages.NativeRouterA
         } else {
             throw new RuntimeException("FlutterBoostPlugin might *NOT* have attached to engine yet!");
         }
-        Log.v(TAG, "## onBackground: " + channel);
+        if (DEBUG) Log.d(TAG, "## onBackground: " + channel);
     }
 
     public void onContainerShow(String uniqueId) {
@@ -168,7 +173,7 @@ public class FlutterBoostPlugin implements FlutterPlugin, Messages.NativeRouterA
         } else {
             throw new RuntimeException("FlutterBoostPlugin might *NOT* have attached to engine yet!");
         }
-        Log.v(TAG, "## onContainerShow: " + channel);
+        if (DEBUG) Log.d(TAG, "## onContainerShow: " + channel);
     }
 
     public void onContainerHide(String uniqueId) {
@@ -179,11 +184,11 @@ public class FlutterBoostPlugin implements FlutterPlugin, Messages.NativeRouterA
         } else {
             throw new RuntimeException("FlutterBoostPlugin might *NOT* have attached to engine yet!");
         }
-        Log.v(TAG, "## onContainerHide: " + channel);
+        if (DEBUG) Log.d(TAG, "## onContainerHide: " + channel);
     }
 
     public void onContainerCreated(FlutterViewContainer container) {
-        Log.v(TAG, "#onContainerCreated: " + container.getUniqueId());
+        if (DEBUG) Log.d(TAG, "#onContainerCreated: " + container.getUniqueId());
     }
 
     public void onContainerAppeared(FlutterViewContainer container) {
@@ -192,20 +197,20 @@ public class FlutterBoostPlugin implements FlutterPlugin, Messages.NativeRouterA
         pushRoute(uniqueId, container.getUrl(), container.getUrlParams(), null);
 
         onContainerShow(uniqueId);
-        Log.v(TAG, "#onContainerAppeared: " + uniqueId + ", " + FlutterContainerManager.instance().getContainers());
+        if (DEBUG) Log.d(TAG, "#onContainerAppeared: " + uniqueId + ", " + FlutterContainerManager.instance().getContainers());
     }
 
     public void onContainerDisappeared(FlutterViewContainer container) {
         String uniqueId = container.getUniqueId();
         onContainerHide(uniqueId);
-        Log.v(TAG, "#onContainerDisappeared: " + uniqueId + ", " +  FlutterContainerManager.instance().getContainers());
+        if (DEBUG) Log.d(TAG, "#onContainerDisappeared: " + uniqueId + ", " +  FlutterContainerManager.instance().getContainers());
     }
 
     public void onContainerDestroyed(FlutterViewContainer container) {
         String uniqueId = container.getUniqueId();
         removeRoute(uniqueId, null);
         FlutterContainerManager.instance().removeContainer(uniqueId);
-        Log.v(TAG, "#onContainerDestroyed: " + uniqueId + ", " +  FlutterContainerManager.instance().getContainers());
+        if (DEBUG) Log.d(TAG, "#onContainerDestroyed: " + uniqueId + ", " +  FlutterContainerManager.instance().getContainers());
     }
 
     @Override

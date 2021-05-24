@@ -181,7 +181,9 @@ class FlutterBoostAppState extends State<FlutterBoostApp> {
   }
 
   Future<T> pushWithResult<T extends Object>(String pageName,
-      {String uniqueId, Map<String, dynamic> arguments, bool withContainer}) {
+      {String uniqueId,
+      Map<String, dynamic> arguments,
+      bool withContainer}) async {
     final completer = Completer<T>();
     assert(uniqueId == null);
     uniqueId = _createUniqueId(pageName);
@@ -190,7 +192,7 @@ class FlutterBoostAppState extends State<FlutterBoostApp> {
         ..pageName = pageName
         ..uniqueId = uniqueId
         ..arguments = arguments ?? <String, dynamic>{};
-      nativeRouterApi.pushFlutterRoute(params);
+      await nativeRouterApi.pushFlutterRoute(params);
     } else {
       push(pageName,
           uniqueId: uniqueId, arguments: arguments, withContainer: false);
@@ -233,8 +235,8 @@ class FlutterBoostAppState extends State<FlutterBoostApp> {
         topContainer.refresh();
       }
     }
-    Logger.log('push page, uniqueId=$uniqueId, existed=$existed,'
-        ' withContainer=$withContainer, arguments:$arguments, $containers');
+    Logger.log('push page, $pageName, existed=$existed, '
+        'withContainer=$withContainer, arguments:$arguments, $containers');
   }
 
   void popWithResult<T extends Object>([T result]) {
@@ -277,14 +279,14 @@ class FlutterBoostAppState extends State<FlutterBoostApp> {
         ..pageName = container.pageInfo.pageName
         ..uniqueId = container.pageInfo.uniqueId
         ..arguments = arguments ?? <String, dynamic>{};
-      _nativeRouterApi.popRoute(params);
+      await nativeRouterApi.popRoute(params);
     }
 
     Logger.log(
         'pop container, uniqueId=$uniqueId, arguments:$arguments, $container');
   }
 
-  void _removeContainer(BoostContainer page) {
+  void _removeContainer(BoostContainer page) async {
     containers.remove(page);
     if (page.pageInfo.withContainer) {
       Logger.log('_removeContainer ,  uniqueId=${page.pageInfo.uniqueId}');
@@ -292,7 +294,7 @@ class FlutterBoostAppState extends State<FlutterBoostApp> {
         ..pageName = page.pageInfo.pageName
         ..uniqueId = page.pageInfo.uniqueId
         ..arguments = page.pageInfo.arguments;
-      _nativeRouterApi.popRoute(params);
+      await nativeRouterApi.popRoute(params);
     }
   }
 
