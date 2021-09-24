@@ -190,7 +190,7 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
       appBar: AppBar(
         brightness:Brightness.light,
         backgroundColor: Colors.white,
-        textTheme:new TextTheme(title: TextStyle(color: Colors.black)) ,
+        textTheme:new TextTheme(headline1: TextStyle(color: Colors.black)) ,
         leading: Builder(builder: (BuildContext context) {
           return IconButton(
             icon: const Icon(Icons.arrow_back),
@@ -381,8 +381,8 @@ class AspectRatioVideoState extends State<AspectRatioVideo> {
     if (!mounted) {
       return;
     }
-    if (initialized != controller.value.initialized) {
-      initialized = controller.value.initialized;
+    if (initialized != controller.value.isInitialized) {
+      initialized = controller.value.isInitialized;
       setState(() {});
     }
   }

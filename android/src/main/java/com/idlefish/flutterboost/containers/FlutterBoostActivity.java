@@ -47,7 +47,7 @@ public class FlutterBoostActivity extends FlutterActivity implements FlutterView
         super.onCreate(savedInstanceState);
         stage = LifecycleStage.ON_CREATE;
         flutterView = FlutterBoostUtils.findFlutterView(getWindow().getDecorView());
-        flutterView.detachFromFlutterEngine(); // Avoid failure when attaching to engine in |onResume|.
+        // flutterView.detachFromFlutterEngine(); // Avoid failure when attaching to engine in |onResume|.
         FlutterBoost.instance().getPlugin().onContainerCreated(this);
         if (DEBUG) Log.d(TAG, "#onCreate: " + this);
     }
@@ -100,7 +100,7 @@ public class FlutterBoostActivity extends FlutterActivity implements FlutterView
         stage = LifecycleStage.ON_RESUME;
 
         // try to detach prevous container from the engine.
-        if (top != null && top != this) top.detachFromEngineIfNeeded();
+        // if (top != null && top != this) top.detachFromEngineIfNeeded();
 
         performAttach();
         FlutterBoost.instance().getPlugin().onContainerAppeared(this);
@@ -127,7 +127,8 @@ public class FlutterBoostActivity extends FlutterActivity implements FlutterView
 
         // We Release |PlatformChannel| here to avoid that the native page affected
         // by system chrome message from flutter.
-        releasePlatformChannel();
+        // releasePlatformChannel();
+        performDetach();
 
         // We defer |performDetach| call to new Flutter container's |onResume|.
         setIsFlutterUiDisplayed(false);
