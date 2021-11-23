@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.idlefish.flutterboost.example.earn.EarnCoinCircleProgress
+        android:id="@+id/earnCoin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <FrameLayout
+        android:id="@+id/fl_default"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:src="@drawable/earn_coin_default_bg" />
+
+        <ImageView
+            android:id="@+id/iv_hongbao"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:src="@drawable/rarn_hongbao" />
+    </FrameLayout>
+
+
+    <TextView
+        android:id="@+id/tv_coin"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textColor="#8D1E00"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:visibility="visible" />
+
+</FrameLayout>
