@@ -2,6 +2,7 @@ package com.idlefish.flutterboost.example;
 
 import com.idlefish.flutterboost.FlutterBoost;
 import com.idlefish.flutterboost.FlutterBoostSetupOptions;
+import com.idlefish.flutterboost.example.earn.EarnFullViewFactory;
 
 import java.util.ArrayList;
 
@@ -18,6 +19,7 @@ public class MyApplication extends FlutterApplication {
         FlutterBoost.instance().setup(this, new MyFlutterBoostDelegate(), engine->{
             // Register the platform view
             engine.getPlatformViewsController().getRegistry().registerViewFactory("<platform-view-type>", new NativeViewFactory());
+            engine.getPlatformViewsController().getRegistry().registerViewFactory("plugins.flutter.io/earnCoinView", new EarnFullViewFactory());
             engine.getPlugins();
         }, options);
     }

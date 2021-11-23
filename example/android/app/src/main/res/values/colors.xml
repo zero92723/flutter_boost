@@ -11,4 +11,7 @@
     <color name="windowBackground">#FFFFFF</color>
     <color name="navigationBarColor">#000000</color>
     <color name="colorAccent">#c8e8ff</color>
+
+    <color name="earn_coin_round_color">#FB5701</color>
+    <color name="earn_coin_progress_bg_Color">#FFDAB1</color>
 </resources>

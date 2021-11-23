@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/basic.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter_boost/flutter_boost.dart';
+import 'package:flutter_boost_example/case/earn_view.dart';
 
 class MediaQueryRouteWidget extends StatefulWidget {
   MediaQueryRouteWidget({this.params, this.message, this.uniqueId});
@@ -54,12 +55,27 @@ class _MediaQueryRouteWidgetState extends State<MediaQueryRouteWidget> {
     Logger.log(
         '${MediaQuery.of(context).size.height} uniqueId=${widget.uniqueId}');
 
+    Map earnMoneyData = Map();
+    earnMoneyData['bizCode'] = 'ltao_earn_coin_miniDetail';
+    earnMoneyData['tag'] = "111111";
+
+    Map params = Map();
+    params["EarnCoinViewHeight"] = 81;
+    params["EarnCoinViewWidth"] = 81;
+    earnMoneyData['extraParams'] = params;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('media query demo'),
       ),
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <
           Widget>[
+        Container(
+          alignment: Alignment.center,
+          width: 66,
+          height: 66,
+          child: EarnView(earnMoneyData),
+        ),
         Expanded(
             flex: 2,
             child: Container(
