@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boost/flutter_boost.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'dart:io' show Platform;
 
 class WebViewExample extends StatefulWidget {
   @override
@@ -16,7 +17,7 @@ class WebViewExampleState extends State<WebViewExample> {
   void initState() {
     super.initState();
     // Enable hybrid composition.
-    // if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
   }
 
   @override
@@ -118,6 +119,15 @@ class WebViewExampleState extends State<WebViewExample> {
                             ),
                           ),
                         ),
+                        Opacity(
+                          opacity: 0.5,
+                          child: Container(
+                            margin: const EdgeInsets.all(10.0),
+                            width: 150,
+                            height: 150,
+                            color: Colors.blue[600],
+                            child: Text('I am not PlatformView!', style: Theme.of(context).textTheme.headline4.copyWith(color: Colors.white)),
+                        )),
                         Container(
                           decoration: BoxDecoration(
                               border:
