@@ -38,7 +38,7 @@ public class FlutterFragmentPageActivity extends AppCompatActivity implements Vi
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(0x40000000);
-            window.getDecorView().setSystemUiVisibility(PlatformPlugin.DEFAULT_SYSTEM_UI);
+            // window.getDecorView().setSystemUiVisibility(PlatformPlugin.DEFAULT_SYSTEM_UI);
         }
         super.onCreate(savedInstanceState);
 
