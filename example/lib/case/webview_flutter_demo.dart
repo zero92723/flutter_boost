@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boost/flutter_boost.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'dart:io' show Platform;
 
 class WebViewExample extends StatefulWidget {
   @override
@@ -22,6 +23,7 @@ class WebViewExampleState extends State<WebViewExample> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        // showPerformanceOverlay: true,
         home: Scaffold(
             appBar: AppBar(
               title: const Text('WebView Example'),
@@ -118,6 +120,19 @@ class WebViewExampleState extends State<WebViewExample> {
                             ),
                           ),
                         ),
+                        Opacity(
+                            opacity: 0.5,
+                            child: Container(
+                                margin: const EdgeInsets.all(10.0),
+                                width: 150,
+                                height: 150,
+                                color: Colors.yellow[600],
+                                child: Center(
+                                  child: Text('I am Flutter UI!',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 20.0, color: Colors.black)),
+                                ))),
                         Container(
                           decoration: BoxDecoration(
                               border:

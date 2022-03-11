@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -25,8 +27,18 @@ class NativeViewExampleState extends State<NativeViewExample> {
   bool hybridCompositionMode = false;
 
   @override
+  void initState() {
+    super.initState();
+    if (hybridCompositionMode) {
+      // Enable hybrid composition.
+      if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        // showPerformanceOverlay: true,
         home: Scaffold(
             appBar: AppBar(
               title: const Text('PlatformView Example'),
@@ -46,41 +58,45 @@ class NativeViewExampleState extends State<NativeViewExample> {
             ),
             body: Container(
                 child: Column(children: <Widget>[
-              InkWell(
-                child: Container(
-                    margin: const EdgeInsets.all(10.0),
-                    color: Colors.yellow,
-                    child: Text(
-                      'Open flutter page',
-                      style: TextStyle(fontSize: 20.0, color: Colors.black),
-                    )),
-                onTap: () => BoostNavigator.instance
-                    .push("flutterPage", withContainer: true),
-              ),
-              InkWell(
-                child: Container(
-                    margin: const EdgeInsets.all(10.0),
-                    color: Colors.yellow,
-                    child: Text(
-                      'Open another platform view',
-                      style: TextStyle(fontSize: 20.0, color: Colors.black),
-                    )),
-                onTap: () => BoostNavigator.instance
-                    .push("platformview/animation", withContainer: true),
-              ),
+              // InkWell(
+              //   child: Container(
+              //       margin: const EdgeInsets.all(10.0),
+              //       color: Colors.yellow,
+              //       child: Text(
+              //         'Open flutter page',
+              //         style: TextStyle(fontSize: 20.0, color: Colors.black),
+              //       )),
+              //   onTap: () => BoostNavigator.instance
+              //       .push("flutterPage", withContainer: true),
+              // ),
+              // InkWell(
+              //   child: Container(
+              //       margin: const EdgeInsets.all(10.0),
+              //       color: Colors.yellow,
+              //       child: Text(
+              //         'Open another platform view',
+              //         style: TextStyle(fontSize: 20.0, color: Colors.black),
+              //       )),
+              //   onTap: () => BoostNavigator.instance
+              //       .push("platformview/animation", withContainer: true),
+              // ),
+
               Expanded(
+                  flex: 1,
                   child: Row(children: [
-                Expanded(child: NativeView(viewType3, hybridCompositionMode)),
-                Expanded(child: NativeView(viewType3, hybridCompositionMode)),
-              ])),
-              Expanded(child: AnimationDemo()),
+                    Expanded(
+                        child: NativeView(viewType3, hybridCompositionMode)),
+                    Expanded(
+                        child: NativeView(viewType3, hybridCompositionMode)),
+                  ])),
+              Expanded(flex: 1, child: AnimationDemo()),
               Expanded(
-                  child: Row(children: [
-                Expanded(child: NativeView(viewType3, hybridCompositionMode)),
-                Expanded(child: NativeView(viewType3, hybridCompositionMode)),
-              ])),
-              Expanded(child: NativeView(viewType2, hybridCompositionMode)),
-              Expanded(child: NativeView(viewType1, hybridCompositionMode)),
+                flex: 3,
+                child: WebView(
+                  initialUrl: "https://webglsamples.org/aquarium/aquarium.html",
+                  javascriptMode: JavascriptMode.unrestricted,
+                ),
+              ),
             ]))));
   }
 }

@@ -8,7 +8,8 @@ class SimpleWebView extends StatefulWidget {
 }
 
 class SimpleWebViewState extends State<SimpleWebView> {
-  final url = 'https://3g.163.com';
+  final url =
+      'https://webglsamples.org/aquarium/aquarium.html'; //'https://3g.163.com';
 
   @override
   void initState() {
@@ -24,7 +25,10 @@ class SimpleWebViewState extends State<SimpleWebView> {
       appBar: AppBar(
         title: const Text('Simple WebView Example'),
       ),
-      body: WebView(initialUrl: url),
+      body: WebView(
+        initialUrl: url,
+        javascriptMode: JavascriptMode.unrestricted,
+      ),
     ));
   }
 }
