@@ -165,7 +165,7 @@ public class FlutterBoostActivity extends FlutterActivity implements FlutterView
             // Attach rendering pipeline.
             flutterView.attachToFlutterEngine(getFlutterEngine());
             isAttached = true;
-            if (DEBUG) Log.d(TAG, "#performAttach: " + this);
+            if (DEBUG) Log.d(TAG, "#p erformAttach: " + this);
         }
     }
 
