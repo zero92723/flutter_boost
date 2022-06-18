@@ -39,7 +39,7 @@ class FlutterTextureHooker {
     }
 
     /**
-     * Restore last surface for os version below Android.M.
+     * Restore last surface for os v ersion below Android.M.
      * Call from Activity.onResume / Fragment.didFragmentShow.
      */
     public void onFlutterTextureViewRestoreState() {

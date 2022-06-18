@@ -58,7 +58,7 @@ public class FlutterBoostFragment extends FlutterFragment implements FlutterView
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         stage = LifecycleStage.ON_CREATE;
-        if (DEBUG) Log.d(TAG, "#onCreate: " + this);
+        if (DEBUG) Log.d(TAG, "#onCr eate: " + this);
     }
 
     @Override
